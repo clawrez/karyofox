@@ -1,0 +1,1008 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Karyofox" property="og:title">
+    <meta content="A genetics-inspired, fox-centred incremental game." property="og:description">
+    <meta content="https://clawrez.gay/games/karyofox" property="og:url">
+    <meta content="https://clawrez.gay/games/karyofox/img/thumbnail.png" property="og:image">
+    <meta content="#4a3a77" data-react-helmet="true" name="theme-color">
+    <meta name="keywords" content="clawrez, milo, fox, dog, puppy, incremental, boxes, game, fox">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css?v=000010010">
+    <title>Karyofox</title>
+</head>
+
+<body>
+    <div id="loader">
+        <div class="loading-text">
+            Karyofox
+        </div>
+        <img src="img/loader.gif">
+        <div class="loading-text">
+            Loading...
+        </div>
+
+    </div>
+    <div id="app">
+        <div id="the-bar">
+            <div id="currencies-container">
+                <div class="currency">
+                    <img class="currency-image" src="img/cells.png" alt="Cells currency icon" title="Cells">
+                    <div class="currency-value" id="cells-value">
+                        0
+                    </div>
+                </div>
+                <div class="currency hidden" id="exocells-currency">
+                    <img class="currency-image" src="img/exocells.png" alt="Exocells currency icon" title="Exocells">
+                    <div class="currency-value" id="exocells-value">
+                        0
+                    </div>
+                </div>
+                <div class="currency hidden" id="hypercells-currency">
+                    <img class="currency-image" src="img/hypercells.png" alt="Hypercells currency icon"
+                        title="Hypercells">
+                    <div class="currency-value" id="hypercells-value">
+                        0
+                    </div>
+                </div>
+            </div>
+            <div id="nav-bar">
+                <button class="nav-bar-item" id="karyofox-nav-button" onclick="changeMenu(`karyofox`)">
+                    Karyofox
+                </button>
+                <button class="nav-bar-item" id="genome-nav-button" onclick="changeMenu(`genomes`)">
+                    Genomes
+                </button>
+                <button class="nav-bar-item hidden" id="exocells-nav-button" onclick="changeMenu(`exocells`)">
+                    Exocells
+                </button>
+                <button class="nav-bar-item" id="excision-nav-button" onclick="changeMenu(`excision`)">
+                    Excision
+                </button>
+                <button class="nav-bar-item hidden" id="automation-nav-button" onclick="changeMenu(`automation`)">
+                    Automation
+                </button>
+                <button class="nav-bar-item" onclick="changeMenu(`options`)">
+                    Options
+                </button>
+            </div>
+        </div>
+        <div class="menu" id="karyofox-menu">
+            <div class="sub-nav-bar">
+                <button class="nav-bar-item sub-nav-item" id="karyofox-main-nav"
+                    onclick="changeSubMenu('main','karyofox')">Main</button>
+                <button class="nav-bar-item sub-nav-item" id="a-apoptosis-nav"
+                    onclick="changeSubMenu('aapoptosis','karyofox')">Apoptosis</button>
+                <button class="nav-bar-item sub-nav-item hidden" id="s-replication-nav"
+                    onclick="changeSubMenu('sreplication','karyofox')">Subordinates</button>
+            </div>
+            <div class="sub-menu karyofox-sub" id="karyofox-main-sub">
+                <div class="panel">
+                    <div class="panel-title" id="karyofox-name" onclick="renameKaryofox()">
+                        Karyofox
+                    </div>
+                    <div class="mini-panel">
+                        <img class="panel-image" id="karyofox-image" src="img/karyofox.png" alt="">
+                        <div id="karyofox-stats">
+                            <div id="karyofox-level">
+                                Level 1
+                            </div>
+                            <div class="panel-divider">
+
+                            </div>
+                            <div id="karyofox-multiplier">
+                                1x cell output
+                            </div>
+                            <div id="karyofox-until">100 more cells until the next level</div>
+                        </div>
+                    </div>
+
+                    <div class="panel-divider">
+
+                    </div>
+                    <div id="stat-max-gen-section">
+                        <div id="karyofox-stats-section">
+                            <div class="karyofox-main-stat" id="karyofox-starting-cells">
+                                Starting with 1 cell.
+                            </div>
+                            <div class="karyofox-main-stat" id="karyofox-max-generations">
+                                Cells can advance 0 generations.
+                            </div>
+                            <div class="karyofox-main-stat" id="karyofox-mitosis-interval">
+                                Cells attempt mitosis every 3 seconds.
+                            </div>
+                            <div class="karyofox-main-stat" id="karyofox-death-chance">
+                                Cells have a 0% chance of undergoing mitosis.
+                            </div>
+                        </div>
+                        <div id="max-generation-selector">
+                            <b>
+                                Max Generation Selector
+                            </b>
+                            <div class="button-row">
+                                <button class="button max-gener-button minus" onclick="configureMaxGeneration(0)">
+                                    -1
+                                </button>
+                                <div id="max-gener-value">
+                                    0
+                                </div>
+                                <button class="button max-gener-button plus" onclick="configureMaxGeneration(1)">
+                                    +1
+                                </button>
+                            </div>
+                            <button class="button max-gener-button toggleable" id="auto-max-gener-button"
+                                onclick="player.maxAutoCellGeneration = !player.maxAutoCellGeneration">
+                                Toggle Auto
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="panel-divider">
+
+                    </div>
+                    <div id="karyofox-generation">
+                        Cell Generation #0
+                    </div>
+                    <div id="karyofox-cell-holding">
+                        1 cell in holding
+                    </div>
+                    <div id="karyofox-progress-bar">
+                        <div id="karyofox-progress">
+
+                        </div>
+                    </div>
+                    <button class="button" id="karyofox-boost-button" onmousedown="boostingProliferation = true"
+                        onmouseup="boostingProliferation = false" onmouseleave="boostingProliferation = false"
+                        onpointerdown="boostingProliferation = true" onpointerup="boostingProliferation = false">
+                        Hold to speed up proliferation
+                    </button>
+
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">
+                        Upgrades
+                    </div>
+                    <div class="button-row" id="karyofox-upgrades">
+                        <button class="button upgrade" onclick="buyKaryofoxUpgrade(0)">
+                            <div class="upgrade-level" id="karyofox-up-level-0">
+                                Level 0 / 50
+                            </div>
+                            <div class="upgrade-desc" id="karyofox-up-desc-0">
+                                Increase the maximum number of cell generations by 1.
+                            </div>
+                            <div class="upgrade-cost" id="karyofox-up-cost-0">
+                                50 Cells
+                            </div>
+                        </button>
+                        <button class="button upgrade" onclick="buyKaryofoxUpgrade(1)">
+                            <div class="upgrade-level" id="karyofox-up-level-1">
+                                Level 0 / 30
+                            </div>
+                            <div class="upgrade-desc" id="karyofox-up-desc-1">
+                                Decrease the mitosis interval by 10%.
+                            </div>
+                            <div class="upgrade-cost" id="karyofox-up-cost-1">
+                                25 Cells
+                            </div>
+                        </button>
+                        <button class="button upgrade" onclick="buyKaryofoxUpgrade(2)">
+                            <div class="upgrade-level" id="karyofox-up-level-2">
+                                Level 0 / 20
+                            </div>
+                            <div class="upgrade-desc" id="karyofox-up-desc-2">
+                                Increase the chance of undergoing mitosis by 5% (additively).
+                            </div>
+                            <div class="upgrade-cost" id="karyofox-up-cost-2">
+                                10 Cells
+                            </div>
+                        </button>
+
+                        <button class="button upgrade" onclick="buyKaryofoxUpgrade(3)">
+                            <div class="upgrade-level" id="karyofox-up-level-3">
+                                Level 0 / 50
+                            </div>
+                            <div class="upgrade-desc" id="karyofox-up-desc-3">
+                                Increase the number of starting cells by 1.
+                            </div>
+                            <div class="upgrade-cost" id="karyofox-up-cost-3">
+                                100 Cells
+                            </div>
+                        </button>
+
+                        <button class="button upgrade hidden" onclick="buyKaryofoxUpgrade(4)">
+                            <div class="upgrade-level" id="karyofox-up-level-4">
+                                Level 0
+                            </div>
+                            <div class="upgrade-desc" id="karyofox-up-desc-4">
+                                Increase cell output by <span id="karyofox-up-base-4">50</span>%.
+                            </div>
+                            <div class="upgrade-cost" id="karyofox-up-cost-4">
+                                10000 Cells
+                            </div>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="sub-menu karyofox-sub hidden" id="karyofox-aapoptosis-sub">
+
+
+                <div class="panel" id="amelioratory-apoptosis-panel">
+                    <div class="panel-title a-apoptosis">
+                        Amelioratory Apoptosis
+                    </div>
+                    <div>
+                        Reset your Karyofox upgrades, level, and cells to further your Karyofox's proficiency. Each time
+                        you
+                        reset, the level requirement increases.
+                    </div>
+                    <div class="quote"><a href="https://soundcloud.com/clawrez/exoform-annihilate-destroy-clawrez-edit"
+                            target="_blank">
+                            "Annihilate. Destroy."
+                        </a></div>
+                    <div class="panel-divider">
+
+                    </div>
+                    <div class="button-row">
+                        <button class="button prestige-button cant-prestige" id="amelioratory-apoptosis-button"
+                            onclick="amelioratoryApoptosis()">
+                            <div id="amelioratory-apoptosis-requirement">
+                                Reach Level 20
+                            </div>
+                            <div class="prestige-title">
+                                Amelioratory Apoptosis
+                            </div>
+                            <div>
+                                Gain a <span id="aa-boost">50</span>x boost to cell output
+                            </div>
+                        </button>
+                    </div>
+                    <br>
+                    <div id="amelioratory-apoptosis-times">
+                        You have undergone Amelioratory Apoptosis 0 times.
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title a-apoptosis">
+                        Milestones
+                    </div>
+                    <div class="milestone-list">
+                        <div class="milestone a-apoptosis">
+                            <div class="milestone-requirement">
+                                1 Reset
+                            </div>
+                            <div class="milestone-desc">
+                                Unlock more genomes.
+                            </div>
+                        </div>
+                        <div class="milestone a-apoptosis">
+                            <div class="milestone-requirement">
+                                5 Resets
+                            </div>
+                            <div class="milestone-desc">
+                                Automatically buy Karyofox upgrades.
+                            </div>
+                        </div>
+                        <div class="milestone a-apoptosis">
+                            <div class="milestone-requirement">
+                                10 Resets
+                            </div>
+                            <div class="milestone-desc">
+                                Unlock even more genomes.
+                            </div>
+                        </div>
+                        <div class="milestone a-apoptosis">
+                            <div class="milestone-requirement">
+                                20 Resets
+                            </div>
+                            <div class="milestone-desc">
+                                Unlock a new exocell upgrade.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="sub-menu karyofox-sub hidden" id="karyofox-sreplication-sub">
+
+
+                <div class="panel" id="subordinate-replication-panel">
+                    <div class="panel-title subordinate-title">
+                        Subordinate Replication
+                    </div>
+                    <div>
+                        Incubate little, altered clones of your Karyofox that boost different mechanics based on their
+                        species.
+                    </div>
+                    <div>
+                        Each one can be fed to increase their effectiveness. This works like an A. Apoptosis
+                        reset. The boost they receive from feeding is based on your cells upon feeding them. If the
+                        boost on feed is less than what is already applied, you cannot feed.
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-title subordinate-title">
+                        Incubation
+                    </div>
+                    <div id="incubation-time-stat">
+                        A subordinate takes 30 seconds to incubate. Their effects stack additively.
+                    </div>
+                    <div id="subordinate-info">
+                        Hover to see a subordinate's effect.
+                    </div>
+                    <div class="button-row">
+                        <button class="button" onclick="incubate(0)" onmouseenter="setActiveClone(0)">
+                            Dog
+                        </button>
+                        <button class="button" onclick="incubate(1)" onmouseenter="setActiveClone(1)">
+                            Goat
+                        </button>
+                        <button class="button" onclick="incubate(2)" onmouseenter="setActiveClone(2)">
+                            Ferret
+                        </button>
+                    </div>
+                    <div id="sreplication-progress-bar">
+                        <div id="sreplication-progress">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-title subordinate-title">
+                        Storage
+                    </div>
+                    <div id="sreplication-space">
+                        You have 0 / 3 subordinates.
+                    </div>
+                    <div id="subordinate-list">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="menu hidden" id="genomes-menu">
+            <div class="sub-menu genomes-sub" id="genomes-main-sub">
+
+
+                <div class="panel">
+                    <div class="panel-title">
+                        Genomes
+                    </div>
+                    <div>
+                        Assign genomes to your cells and group them together to give them a more specialised purpose.
+                    </div>
+                    <div>
+                        Green-bordered genomes are permanent.
+                    </div>
+                    <div class="quote"><a href="https://www.youtube.com/watch?v=etFyQLiNLjw" target="_blank">
+                            "... the next advancement in [Karyofox] evolution"
+                        </a></div>
+                    <div class="panel-divider"></div>
+                    <div id="genome-name">
+                        Hover
+                    </div>
+                    <div id="genome-desc">
+                        for
+                    </div>
+                    <div id="genome-cost">
+                        information
+                    </div>
+                </div>
+
+                <div id="genome-tree">
+                    <div class="genome-row" id="genome-row-0">
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box e-s">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(0)" onclick="buyGenome(0)">
+                            EE
+                        </button>
+                        <div class="genome-box w-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box ">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                    </div>
+                    <div class="genome-row" id="genome-row-1">
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <button class="genome-box genome-node unlock" onmouseenter="setActiveGenome(1)"
+                            onclick="buyGenome(1)">
+                            SG
+                        </button>
+                        <div class="genome-box w-e">
+
+                        </div>
+                        <div class="genome-box n-w-d">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-e-d">
+
+                        </div>
+                        <div class="genome-box w-e">
+
+                        </div>
+                        <button class="genome-box genome-node unlock" onmouseenter="setActiveGenome(2)"
+                            onclick="buyGenome(2)">
+                            AD
+                        </button>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                    </div>
+                    <div class="genome-row hidden" id="genome-row-2">
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box e-s">
+
+                        </div>
+                        <button class="genome-box genome-node unlock" onmouseenter="setActiveGenome(3)"
+                            onclick="buyGenome(3)">
+                            SR
+                        </button>
+                        <div class="genome-box w-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                    </div>
+                    <div class="genome-row hidden" id="genome-row-3">
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box e-s">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(4)" onclick="buyGenome(4)">
+                            EM
+                        </button>
+                        <div class="genome-box w-s">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box e-s">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(5)" onclick="buyGenome(5)">
+                            DI
+                        </button>
+                        <div class="genome-box w-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                    </div>
+                    <div class="genome-row hidden" id="genome-row-4">
+                        <div class="genome-box">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(6)" onclick="buyGenome(6)">
+                            I
+                        </button>
+                        <div class="genome-box n-w">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-e">
+
+                        </div>
+                        <button class="genome-box genome-node unlock" onmouseenter="setActiveGenome(7)" onclick="buyGenome(7)">
+                            F
+                        </button>
+                        <div class="genome-box">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(8)" onclick="buyGenome(8)">
+                            VG
+                        </button>
+                        <div class="genome-box n-w">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-e">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(9)" onclick="buyGenome(9)">
+                            R
+                        </button>
+                        <div class="genome-box">
+
+                        </div>
+                    </div>
+                    <div class="genome-row hidden" id="genome-row-5">
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box e-s">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(10)"
+                            onclick="buyGenome(10)">
+                            H
+                        </button>
+                        <div class="genome-box w-s">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box e-s">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(11)"
+                            onclick="buyGenome(11)">
+                            M
+                        </button>
+                        <div class="genome-box w-s">
+
+                        </div>
+                        <div class="genome-box n-s">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                    </div>
+                    <div class="genome-row hidden" id="genome-row-6">
+                        <div class="genome-box">
+
+                        </div>
+                        <button class="genome-box genome-node unlock" onmouseenter="setActiveGenome(12)"
+                            onclick="buyGenome(12)">
+                            TG
+                        </button>
+                        <div class="genome-box n-w">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-e">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(13)"
+                            onclick="buyGenome(13)">
+                            I
+                        </button>
+                        <div class="genome-box">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(14)"
+                            onclick="buyGenome(14)">
+                            N
+                        </button>
+                        <div class="genome-box n-w">
+
+                        </div>
+                        <div class="genome-box">
+
+                        </div>
+                        <div class="genome-box n-e">
+
+                        </div>
+                        <button class="genome-box genome-node" onmouseenter="setActiveGenome(15)"
+                            onclick="buyGenome(15)">
+                            M
+                        </button>
+                        <div class="genome-box">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="menu hidden" id="exocells-menu">
+        <div class="sub-nav-bar">
+            <button class="nav-bar-item sub-nav-item" id="exocells-main-nav"
+                onclick="changeSubMenu('main','exocells')">Exocells</button>
+            <button class="nav-bar-item sub-nav-item hidden" id="hypercells-nav"
+                onclick="changeSubMenu('hypercells','exocells')">Hypercells</button>
+        </div>
+        <div class="sub-menu exocells-sub" id="exocells-main-sub">
+
+
+            <div class="panel">
+                <div class="panel-title exocells">
+                    Exocells
+                </div>
+                <div>
+                    Exocells are discharged by your Karyofox as a result of proliferation. Use them to
+                    make your production even more powerful.
+                </div>
+                <div id="exocell-income">
+                    You are getting 3 exocells per second.
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title exocells">
+                    Upgrades
+                </div>
+                <div class="button-row" id="exocell-upgrades">
+                    <button class="button upgrade exocells" onclick="buyExocellUpgrade(0)">
+                        <div class="upgrade-level" id="exocell-up-level-0">
+                            Level 0
+                        </div>
+                        <div class="upgrade-desc" id="exocell-up-desc-0">
+                            Double exocell emission.
+                        </div>
+                        <div class="upgrade-cost" id="exocell-up-cost-0">
+                            100 Exocells
+                        </div>
+                    </button>
+                    <button class="button upgrade exocells" onclick="buyExocellUpgrade(1)">
+                        <div class="upgrade-level" id="exocell-up-level-1">
+                            Level 0
+                        </div>
+                        <div class="upgrade-desc" id="exocell-up-desc-1">
+                            Increase cell output by 50%.
+                        </div>
+                        <div class="upgrade-cost" id="exocell-up-cost-1">
+                            150 Exocells
+                        </div>
+                    </button>
+                    <button class="button upgrade exocells" onclick="buyExocellUpgrade(2)">
+                        <div class="upgrade-level" id="exocell-up-level-2">
+                            Level 0 / 10
+                        </div>
+                        <div class="upgrade-desc" id="exocell-up-desc-2">
+                            Decrease Karyofox upgrade cost scaling by 1%.
+                        </div>
+                        <div class="upgrade-cost" id="exocell-up-cost-2">
+                            500 Exocells
+                        </div>
+                    </button>
+                    <button class="button upgrade exocells hidden" onclick="buyExocellUpgrade(3)">
+                        <div class="upgrade-level" id="exocell-up-level-3">
+                            Level 0 / 100
+                        </div>
+                        <div class="upgrade-desc" id="exocell-up-desc-3">
+                            Increase starting cells by <span id="exocell-up-effect-3">5</span>.
+                        </div>
+                        <div class="upgrade-cost" id="exocell-up-cost-3">
+                            1000 Exocells
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="sub-menu exocells-sub hidden" id="exocells-hypercells-sub">
+            <div class="panel">
+                <div class="panel-title hypercells">
+                    Hypercells
+                </div>
+                <div>
+                    Hypercells are generated based on the level of the first exocell upgrade. You can only possess so
+                    many before needing to invest them back into holding more.
+                </div>
+                <div id="hypercell-income">
+                    You are getting 3 hypercells per second.
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title hypercells">
+                    Upgrades
+                </div>
+                <div class="button-row" id="hypercell-upgrades">
+                    <button class="button upgrade hypercells" onclick="buyHypercellUpgrade(0)">
+                        <div class="upgrade-level" id="hypercell-up-level-0">
+                            Level 0
+                        </div>
+                        <div class="upgrade-desc" id="hypercell-up-desc-0">
+                            Double the hypercell hardcap.
+                        </div>
+                        <div class="upgrade-cost" id="hypercell-up-cost-0">
+                            100 Hypercells
+                        </div>
+                    </button>
+                    <button class="button upgrade hypercells" onclick="buyHypercellUpgrade(1)">
+                        <div class="upgrade-level" id="hypercell-up-level-1">
+                            Level 0
+                        </div>
+                        <div class="upgrade-desc" id="hypercell-up-desc-1">
+                            Increase hypercell emission by 50%.
+                        </div>
+                        <div class="upgrade-cost" id="hypercell-up-cost-1">
+                            50 Hypercells
+                        </div>
+                    </button>
+                    <button class="button upgrade hypercells" onclick="buyHypercellUpgrade(2)">
+                        <div class="upgrade-level" id="hypercell-up-level-2">
+                            Level 0
+                        </div>
+                        <div class="upgrade-desc" id="hypercell-up-desc-2">
+                            Double exocell emission.
+                        </div>
+                        <div class="upgrade-cost" id="hypercell-up-cost-2">
+                            150 Hypercells
+                        </div>
+                    </button>
+                    <button class="button upgrade hypercells" onclick="buyHypercellUpgrade(3)">
+                        <div class="upgrade-level" id="hypercell-up-level-3">
+                            Level 0 / 15
+                        </div>
+                        <div class="upgrade-desc" id="hypercell-up-desc-3">
+                            Increase the fourth exocell upgrade's effect by 1.
+                        </div>
+                        <div class="upgrade-cost" id="hypercell-up-cost-3">
+                            300 Hypercells
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu hidden" id="excision-menu">
+        <div class="sub-menu excision-sub" id="excision-main-sub">
+            <div class="panel">
+                <div class="panel-title excision">
+                    Excision
+                </div>
+                <!-- <div>
+                    Sacrifice your excess resources. Each unique sacirifce will provide a different boost. Each one will
+                    set you back to the beginning, only leaving you with Amelioratory Apoptosis milestones and
+                    green-bordered genomes.
+                </div> -->
+                <div class="button-row">
+                    END GAME! Congrats!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu hidden" id="options-menu">
+        <div class="sub-nav-bar">
+            <button class="nav-bar-item sub-nav-item" onclick="changeSubMenu('settings','options')">Settings</button>
+            <button class="nav-bar-item sub-nav-item" onclick="changeSubMenu('help','options')">Help</button>
+        </div>
+
+        <div class="sub-menu options-sub" id="options-settings-sub">
+
+
+            <div class="panel">
+                <div class="panel-title">
+                    Options
+                </div>
+                <div>
+                    Configure your experience, proliferate better.
+                </div>
+                <div class="button-row">
+                    <button class="button" onclick="save()">
+                        Save
+                    </button>
+                    <button class="button" onclick="exportSave()">
+                        Export
+                    </button>
+                    <button class="button" onclick="importSave()">
+                        Import
+                    </button>
+                    <button class="button" id="hard-reset-button" onclick="hardReset()">
+                        Reset
+                    </button>
+                </div>
+                <div class="panel-divider"></div>
+                <div class="button-row">
+                    <button class="button options-button toggleable" onclick="toggleUseCompressedKaryofoxStats()"
+                        id="compressed-karyofox-stats-options">
+                        Compressed Karyofox stats
+                    </button>
+                    <button class="button options-button toggleable" onclick="toggleShowMaxGenSelector()"
+                        id="show-max-gen-options">
+                        Show max cell generation selector
+                    </button>
+                </div>
+                <div class="panel-divider"></div>
+                <div>
+                    Inspired by Dodecadragons and Space Invaders Infinity Gene, among other things...
+                </div>
+                <div>
+                    Thank you <a href="https://demonin.com" target="_blank">Demonin</a> for the saving code :3
+                </div>
+                <div class="panel-divider">
+
+                </div>
+                <div>
+                    Karyofox v0.1.1<br>
+                    Created with 💜 by Milo<br>
+                    <a href="https://clawrez.gay" target="_blank">Website</a> | <a
+                        href="https://discord.com/invite/GwvYGnsmtN" target="_blank">Discord</a> | <a
+                        href="https://ko-fi.com/clawrez" target="_blank">Donate</a>
+                </div>
+            </div>
+        </div>
+        <div class="sub-menu options-sub hidden" id="options-help-sub">
+
+
+            <div class="panel">
+                <div class="panel-title">
+                    Starting Guide
+                </div>
+                <div>
+                    <b>Cell generation</b> works in a way reminiscent of mitosis. You start with a certain number of
+                    cells (<b>starting cells</b>), and
+                    your Karyofox iterates through multiple generations. Each time the progress bar is filled, your
+                    cells advance a generation, and each of
+                    your cells has a chance of multiplying. At larger numbers of <b>cells in holding</b>, the <b>mitosis
+                        chance</b> value essentially becomes the value that your <b>cells in holding</b> are multiplied
+                    by after a generation.
+                    After your cells have advanced the maximum number of generations, the number of <b>cells in
+                        holding</b> is
+                    added to your total <b>cells</b>. This value is known as <b>cell output</b>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu hidden" id="automation-menu">
+        <div class="sub-menu automation-sub" id="automation-main-sub">
+            <div class="panel">
+                <div class="panel-title">
+                    Automation Toggles
+                </div>
+                <div class="button-row" id="automation-toggles">
+                    <button class="button automation-toggle" onclick="toggleAutomator(0)">
+                        <div class="toggle-title">
+                            Karyofox Upgrade Autobuyer
+                        </div>
+                        <div class="toggle-status" id="tog-sta-0">
+                            Enabled
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script src="js/bemin.js?v=000101"></script>
+    <script src="js/notation.js?v=000101"></script>
+    <script src="js/save.js?v=000101"></script>
+
+    <script src="js/cells.js?v=000101"></script>
+    <script src="js/genomes.js?v=000101"></script>
+    <script src="js/exocells.js?v=000101"></script>
+    <script src="js/subortinates.js?v=000101"></script>
+    <script src="js/excision.js?v=000101"></script>
+
+    <script src="js/automation.js?v=000101"></script>
+    <script src="js/update.js?v=000101"></script>
+    <script src="js/ui.js?v=000101"></script>
+    <script src="js/options.js?v=000101"></script>
+    <script src="js/nav.js?v=000101"></script>
+
+    <script>
+        load();
+    </script>
+
+    <script>
+        let loaderElement = document.getElementById("loader")
+
+        window.addEventListener("load", function () {
+
+
+            setTimeout(() => {
+                loaderElement.style.opacity = "0%"
+                setTimeout(() => {
+                    loaderElement.style.display = "none"
+                }, 500);
+            }, 500);
+
+        })
+    </script>
+</body>
+
+</html>
