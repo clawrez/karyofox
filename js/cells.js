@@ -90,7 +90,7 @@ function buyKaryofoxUpgrade(index) {
             }
         }
     }
-    player.cells = Decimal.max(0, Decimal.minus(player.cells, player.karyofoxUpgrades[index].cost)) 
+    player.cells = Decimal.max(0, Decimal.minus(player.cells, player.karyofoxUpgrades[index].cost))
     player.karyofoxUpgrades[index].cost = Decimal.times(player.karyofoxUpgrades[index].cost, KaryofoxUpgradeData[index].increase)
     player.karyofoxUpgrades[index].level = Decimal.add(player.karyofoxUpgrades[index].level, "1")
 }
@@ -122,12 +122,11 @@ function buyMaxKaryofoxUpgrade(index) {
 }
 
 function increaseKaryofoxLevel() {
-    if (Decimal.gt(player.karyofoxLevelReq, player.totalCells) || Decimal.lte(player.totalCells, "0" || Decimal.gte(player.karyofoxLevelReq, player.maxKaryofoxLevel))) {
+    if (Decimal.gt(player.karyofoxLevelReq, player.totalCells) || Decimal.lte(player.totalCells, "0") || Decimal.gte(player.karyofoxLevelReq, player.maxKaryofoxLevel)) {
         return;
     }
 
-    let numLevelsAffordable = Decimal.floor(Decimal.ln(Decimal.div(player.totalCells, player.karyofoxLevelReq).times(Decimal.minus("10", Decimal.one)).plus(Decimal.one)).div(Decimal.ln("10")));
-
+    let numLevelsAffordable = Decimal.floor(Decimal.add(Decimal.ln(Decimal.div(player.totalCells, player.karyofoxLevelReq).times(Decimal.minus("10", Decimal.one)).plus(Decimal.one)).div(Decimal.ln("10")), "0.0000001"));
     let levelsUntilMax = Decimal.minus(player.maxKaryofoxLevel, player.karyofoxLevel)
     if (Decimal.gt(numLevelsAffordable, levelsUntilMax)) {
         numLevelsAffordable = levelsUntilMax
@@ -135,7 +134,7 @@ function increaseKaryofoxLevel() {
 
     const totalCost = Decimal.div(Decimal.mul(player.karyofoxLevelReq, Decimal.minus(Decimal.pow("10", numLevelsAffordable), Decimal.one)), Decimal.minus("10", Decimal.one));
 
-    player.totalCells = Decimal.max(0, Decimal.minus(player.totalCells, totalCost));
+    player.totalCells = Decimal.max(0, Decimal.minus(player.totalCells, totalCost))
     player.karyofoxLevelReq = Decimal.times(player.karyofoxLevelReq, Decimal.pow("10", numLevelsAffordable));
     player.karyofoxLevel = Decimal.add(player.karyofoxLevel, numLevelsAffordable);
 }
