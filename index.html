@@ -51,6 +51,13 @@
                         0
                     </div>
                 </div>
+                <div class="currency hidden" id="genessence-currency">
+                    <img class="currency-image" src="img/genessence.png" alt="Genessence currency icon"
+                        title="Genessence">
+                    <div class="currency-value" id="genessence-value">
+                        0
+                    </div>
+                </div>
             </div>
             <div id="nav-bar">
                 <button class="nav-bar-item" id="karyofox-nav-button" onclick="changeMenu(`karyofox`)">
@@ -585,7 +592,8 @@
                         <div class="genome-box n-e">
 
                         </div>
-                        <button class="genome-box genome-node unlock" onmouseenter="setActiveGenome(7)" onclick="buyGenome(7)">
+                        <button class="genome-box genome-node unlock" onmouseenter="setActiveGenome(7)"
+                            onclick="buyGenome(7)">
                             F
                         </button>
                         <div class="genome-box">
@@ -845,18 +853,39 @@
     </div>
 
     <div class="menu hidden" id="excision-menu">
+        <div class="sub-nav-bar">
+            <button class="nav-bar-item sub-nav-item" id="excision-main-nav"
+                onclick="changeSubMenu('main','excision')">Sacrifice</button>
+            <button class="nav-bar-item sub-nav-item hidden" id="hypercells-nav"
+                onclick="changeSubMenu('ortures','excision')">Ortures</button>
+        </div>
         <div class="sub-menu excision-sub" id="excision-main-sub">
             <div class="panel">
                 <div class="panel-title excision">
                     Excision
                 </div>
-                <!-- <div>
-                    Sacrifice your excess resources. Each unique sacirifce will provide a different boost. Each one will
+                <div>
+                    Sacrifice your excess resources. Choose a path to begin conquering. Each one will
                     set you back to the beginning, only leaving you with Amelioratory Apoptosis milestones and
-                    green-bordered genomes.
-                </div> -->
+                    green-bordered genomes. You will be granted a new minigame to improve your Karyofox further, and
+                    genessence.
+                </div>
                 <div class="button-row">
-                    END GAME! Congrats!
+                    <button class="button sacrifice-button purple">
+                        <div class="sac-title">
+                            Ortures
+                        </div>
+                    </button>
+                    <button class="button sacrifice-button redpink">
+                        <div class="sac-title">
+                            Niniures
+                        </div>
+                    </button>
+                    <button class="button sacrifice-button yellow">
+                        <div class="sac-title">
+                            Delires
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>

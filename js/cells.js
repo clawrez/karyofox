@@ -122,7 +122,7 @@ function buyMaxKaryofoxUpgrade(index) {
 }
 
 function increaseKaryofoxLevel() {
-    if (Decimal.gt(player.karyofoxLevelReq, player.totalCells) || Decimal.lte(player.totalCells, "0") || Decimal.gte(player.karyofoxLevelReq, player.maxKaryofoxLevel)) {
+    if (Decimal.gt(player.karyofoxLevelReq, player.totalCells) || Decimal.lte(player.totalCells, "0") || Decimal.gte(player.karyofoxLevel, player.maxKaryofoxLevel)) {
         return;
     }
 

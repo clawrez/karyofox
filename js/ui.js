@@ -44,11 +44,13 @@ const incubationTimeStat = _.getElementById("incubation-time-stat")
 
 const exocellsCurrencyElement = _.getElementById("exocells-currency")
 const hypercellsCurrencyElement = _.getElementById("hypercells-currency")
+const genessenceCurrencyElement = _.getElementById("genessence-currency")
 
 
 const cellsValue = _.getElementById("cells-value")
 const exocellsValue = _.getElementById("exocells-value")
 const hypercellsValue = _.getElementById("hypercells-value")
+const genessenceValue = _.getElementById("genessence-value")
 
 const exocellIncomeElement = _.getElementById("exocell-income")
 const hypercellIncomeElement = _.getElementById("hypercell-income")
@@ -186,9 +188,11 @@ setInterval(() => {
     if (player.unlocks[2] == true) {
         excisionNavButton.classList.remove("not-unlocked")
         excisionNavButton.textContent = "Excision"
+        genessenceCurrencyElement.classList.remove("hidden")
     } else {
         excisionNavButton.classList.add("not-unlocked")
         excisionNavButton.textContent = "[Level 100]"
+        genessenceCurrencyElement.classList.add("hidden")
     }
     // Extras
     karyofoxNameElement.textContent = player.karyofoxName
