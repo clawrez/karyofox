@@ -122,6 +122,15 @@ function reset() {
             cost: new Decimal("0"),
         },
         ],
+        // Excision
+        genessence: new Decimal("0"),
+        // Ortures
+        spirits: [{
+            cost: new Decimal("10"),
+            bought: new Decimal("0"),
+            quantity: new Decimal("0"),
+            multiplier: new Decimal("1"),
+        },],
     }
 }
 

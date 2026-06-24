@@ -800,6 +800,7 @@ button {
     background-color: #000000;
     border: 1px solid #f00;
     color: #f00;
+    text-shadow: none;
 }
 
 .button.sacrifice-button {
@@ -814,19 +815,40 @@ button {
     font-weight: 800;
 }
 
-.button.sacrifice-button.purple {
+.button.sacrifice-button.ortures {
     color: #6831ff;
     border-color: #6831ff;
 }
 
-.button.sacrifice-button.redpink {
+.button.sacrifice-button.niniures {
     color: #ff1d73;
     border-color: #ff1d73;
 }
 
-.button.sacrifice-button.yellow {
+.button.sacrifice-button.delires {
     color: #ffd86d;
     border-color: #ffd86d;
+}
+
+.panel-title.ortures {
+    color: #6831ff;
+    border: 1px solid #6831ff;
+    background-color: #000;
+    text-shadow: none;
+}
+
+.panel-title.niniures {
+    color: #ff1d73;
+    border: 1px solid #ff1d73;
+    background-color: #000;
+    text-shadow: none;
+}
+
+.panel-title.delires {
+    color: #ffd86d;
+    border: 1px solid #ffd86d;
+    background-color: #000;
+    text-shadow: none;
 }
 
 .button.sacrifice-button:hover {
@@ -881,6 +903,41 @@ button {
 #effect-section-2.not-in-effect {
     opacity: 50%;
     border-color: white;
+}
+
+.ortures-spirit {
+    display: flex;
+    width: 550px;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: 1px solid #6831ff;
+    border-radius: 3px;
+    gap: 24px;
+}
+
+.spirit-title {
+    width: 110px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.spirit-button {
+    margin-left: auto;
+    padding: 3px;
+    min-width: 140px;
+    min-height: 15px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    text-align: center;
+    transition: background-color 0.1s, color 0.1s, filter 0.1s, transform 0.08s, opacity 0.1s;
+    border-radius: 4px;
+}
+
+.spirit-button:hover {
+    background-color: white;
+    color: black;
 }
 
 /* button.upgrade-available {

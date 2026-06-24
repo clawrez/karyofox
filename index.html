@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css?v=0001011">
+    <link rel="stylesheet" href="styles.css?v=0002000">
     <title>Karyofox</title>
 </head>
 
@@ -856,7 +856,7 @@
         <div class="sub-nav-bar">
             <button class="nav-bar-item sub-nav-item" id="excision-main-nav"
                 onclick="changeSubMenu('main','excision')">Sacrifice</button>
-            <button class="nav-bar-item sub-nav-item hidden" id="hypercells-nav"
+            <button class="nav-bar-item sub-nav-item" id="hypercells-nav"
                 onclick="changeSubMenu('ortures','excision')">Ortures</button>
         </div>
         <div class="sub-menu excision-sub" id="excision-main-sub">
@@ -870,21 +870,52 @@
                     green-bordered genomes. You will be granted a new minigame to improve your Karyofox further, and
                     genessence.
                 </div>
+                <div>
+                    Requires Level 100.
+                </div>
                 <div class="button-row">
-                    <button class="button sacrifice-button purple">
+                    <button class="button sacrifice-button ortures">
                         <div class="sac-title">
                             Ortures
                         </div>
                     </button>
-                    <button class="button sacrifice-button redpink">
+                    <button class="button sacrifice-button niniures">
                         <div class="sac-title">
                             Niniures
                         </div>
                     </button>
-                    <button class="button sacrifice-button yellow">
+                    <button class="button sacrifice-button delires">
                         <div class="sac-title">
                             Delires
                         </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="sub-menu excision-sub hidden" id="excision-ortures-sub">
+            <div class="panel">
+                <div class="panel-title ortures">
+                    Information
+                </div>
+                <div>
+                    Ortures is more aligned with basic cells.
+                </div>
+                <div>
+                    0% completed...
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title ortures">Ortures</div>
+                <div class="ortures-spirit" id="ortures-spirit-0">
+                    <div class="spirit-title">SPIRIT</div>
+                    <div class="spirit-production" id="spirit-production-0">
+                        Producing 0.00/s
+                    </div>
+                    <div class="spirit-multiplier" id="spirit-multiplier-0">
+                        1.00x
+                    </div>
+                    <button class="spirit-button" id="spirit-button-0">
+                        Costs <span class="spirit-cost" id="spirit-cost-0">1.00e10</span>
                     </button>
                 </div>
             </div>
@@ -997,21 +1028,21 @@
     </div>
 
 
-    <script src="js/bemin.js?v=0001011"></script>
-    <script src="js/notation.js?v=0001011"></script>
-    <script src="js/save.js?v=0001011"></script>
+    <script src="js/bemin.js?v=0002000"></script>
+    <script src="js/notation.js?v=0002000"></script>
+    <script src="js/save.js?v=0002000"></script>
 
-    <script src="js/cells.js?v=0001011"></script>
-    <script src="js/genomes.js?v=0001011"></script>
-    <script src="js/exocells.js?v=0001011"></script>
-    <script src="js/subortinates.js?v=0001011"></script>
-    <script src="js/excision.js?v=0001011"></script>
+    <script src="js/cells.js?v=0002000"></script>
+    <script src="js/genomes.js?v=0002000"></script>
+    <script src="js/exocells.js?v=0002000"></script>
+    <script src="js/subortinates.js?v=0002000"></script>
+    <script src="js/excision.js?v=0002000"></script>
 
-    <script src="js/automation.js?v=0001011"></script>
-    <script src="js/update.js?v=0001011"></script>
-    <script src="js/ui.js?v=0001011"></script>
-    <script src="js/options.js?v=0001011"></script>
-    <script src="js/nav.js?v=0001011"></script>
+    <script src="js/automation.js?v=0002000"></script>
+    <script src="js/update.js?v=0002000"></script>
+    <script src="js/ui.js?v=0002000"></script>
+    <script src="js/options.js?v=0002000"></script>
+    <script src="js/nav.js?v=0002000"></script>
 
     <script>
         load();
